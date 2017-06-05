@@ -1,5 +1,39 @@
 html
 	head
 		title To-Do App
+		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+		link(rel="stylesheet", type="text/css", href="stylesheets/style.css")
 	body
-		h1 TEST
+		div.container
+			div.row
+				div.col-sm-12.text-center
+					h3 Your ToDo List...
+					h3 #{message}
+					form.form-inline(action="/addItem" method="post")
+						div.form-group
+							div.input-group
+								input.form-control(type="text", placeholder="New Task", name="newTask")
+							div.input-group
+								input.form-control(type="date", placeholder="New Task Date", name="newTaskDate")
+							button.btn.btn-primary(type="submit") Add New Task
+			div.row
+				div.col-sm-12.text-center
+					a(href="/today-tasks")
+						button.btn.btn-primary Today
+			div.row
+				div.col-sm-12.text-center
+					table.table
+						tr
+							th Task Name
+							th Task Due Date
+							th Edit
+							th Delete
+						- each val in taskArray
+							tr 
+								td= val.taskName
+								td= val.taskDate
+								td
+									button.btn.btn-warning Edit
+								td
+									a(href="/delete/#{val.id}")
+										button.btn.btn-danger Delet
